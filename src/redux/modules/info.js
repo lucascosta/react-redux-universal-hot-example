@@ -1,3 +1,6 @@
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 const LOAD = 'redux-example/LOAD';
 const LOAD_SUCCESS = 'redux-example/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/LOAD_FAIL';
@@ -41,4 +44,15 @@ export function load() {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: (client) => client.get('/loadInfo')
   };
+}
+
+export function connector(Component) {
+  return connect(
+    state => ({info: state.info.data}),
+    dispatch => bindActionCreators({load}, dispatch)
+  )(Component);
+}
+
+export function connectorMini(Component) {
+  return connect(state => ({ time: state.info.data.time }))(Component);
 }

@@ -1,3 +1,5 @@
+import {connectMultireducer} from 'multireducer';
+
 const INCREMENT = 'redux-example/counter/INCREMENT';
 
 const initialState = {
@@ -20,4 +22,11 @@ export function increment() {
   return {
     type: INCREMENT
   };
+}
+
+export function connector(Component) {
+  return connectMultireducer(
+    (key, state) => ({count: state.multireducer[key].count}),
+    {increment}
+  )(Component);
 }

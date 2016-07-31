@@ -1,3 +1,6 @@
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 const IS_VALID = 'redux-example/survey/IS_VALID';
 const IS_VALID_SUCCESS = 'redux-example/survey/IS_VALID_SUCCESS';
 const IS_VALID_FAIL = 'redux-example/survey/IS_VALID_FAIL';
@@ -35,4 +38,10 @@ export function isValidEmail(data) {
       data
     })
   };
+}
+
+export function connector(Component) {
+  return connect(() => ({}),
+    dispatch => bindActionCreators({isValidEmail}, dispatch)
+  )(Component);
 }

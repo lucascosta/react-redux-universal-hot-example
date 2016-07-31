@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import surveyValidation from './surveyValidation';
-import * as surveyActions from 'redux/modules/survey';
+import {connector} from 'redux/modules/survey';
 
 function asyncValidate(data, dispatch, {isValidEmail}) {
   if (!data.email) {
@@ -11,9 +9,7 @@ function asyncValidate(data, dispatch, {isValidEmail}) {
   }
   return isValidEmail(data);
 }
-@connect(() => ({}),
-  dispatch => bindActionCreators(surveyActions, dispatch)
-)
+@connector
 @reduxForm({
   form: 'survey',
   fields: ['name', 'email', 'occupation', 'currentlyEmployed', 'sex'],

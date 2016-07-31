@@ -1,3 +1,6 @@
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 const LOAD = 'redux-example/widgets/LOAD';
 const LOAD_SUCCESS = 'redux-example/widgets/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/widgets/LOAD_FAIL';
@@ -109,4 +112,13 @@ export function editStart(id) {
 
 export function editStop(id) {
   return { type: EDIT_STOP, id };
+}
+
+export function connector(Component) {
+  return connect(
+    state => ({
+      saveError: state.widgets.saveError
+    }),
+    dispatch => bindActionCreators({load, save}, dispatch)
+  )(Component);
 }
